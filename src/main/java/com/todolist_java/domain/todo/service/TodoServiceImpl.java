@@ -10,7 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Comparator;
 import java.util.List;
 
-
+//싱글톤 단 하나의 객체만 생성해서 스프링이 관리한다
+// 그걸 빈이라고 부른다
+// 스프링부트 -> 객체지향 싱글톤 mvc 다 적용된거 근데 이해를 안하고 갖다 박으니까 어려움
+//
 @Service
 public class TodoServiceImpl implements TodoService {
 
@@ -24,20 +27,29 @@ public class TodoServiceImpl implements TodoService {
     @Transactional
     public TodoResponseDTO createTodo(TodoRequestDTO todoRequestDTO) {
 
-        String title = todoRequestDTO.getTitle();
-        String content = todoRequestDTO.getContent();
-        String writer = todoRequestDTO.getWriter();
-        String password = todoRequestDTO.getPassword();
+//        Todo todo = new Todo(todoRequestDTO);
+        //        Todo todo = todoRequestDTO.toTodo();
+//        Todo todo = todoRequestDTO.toEntity();
 
 
-        if (title.isEmpty() || content.isEmpty() || writer.isEmpty() || password.isEmpty()) {
-            throw new IllegalArgumentException("모든 항목을 채워주세요");
-        }
+        Todo todo = todoRequestDTO.toTodo();
+        //생성책임이 dto에 있다
+        //책임차이
+        //정답은 없다 이유만 있으면 된다
 
-        //유효성검증 여기서 하지마라 ~!
+//        Todo todo2 = new Todo(
+//                todoRequestDTO.getTitle(),
+//                todoRequestDTO.getContent(),
+//                todoRequestDTO.getWriter(),
+//                todoRequestDTO.getPassword()
+//        );
+        //생성 책임이 서비스에 있다
 
 
-        Todo todo = todoRequestDTO.toEntity();
+
+
+
+
         todoRepository.save(todo);
         return TodoResponseDTO.fromTodo(todo);
     }
@@ -51,7 +63,7 @@ public class TodoServiceImpl implements TodoService {
                 .findByWriterAndPassword(todoRequestDTO.getWriter(),todoRequestDTO.getPassword())
                 .orElseThrow(()->new IllegalArgumentException("니꺼아님"));
 
-        todo.update(todoRequestDTO.getTitle(),todoRequestDTO.getContent());
+        todo.update(todoRequestDTO.getTitle(),todoRequestDTO.getContent(),todoRequestDTO.getWriter());
         todoRepository.save(todo);
         return TodoResponseDTO.fromTodo(todoRepository.save(todo));
         }
@@ -78,7 +90,6 @@ public class TodoServiceImpl implements TodoService {
         todoList.sort(Comparator.comparing(Todo::getCreatedAt).reversed());
         return todoList.stream().map(TodoResponseDTO::fromTodo).toList();
     }
-    //이거 손봐야댐 하나만 나옴
     }
 
 

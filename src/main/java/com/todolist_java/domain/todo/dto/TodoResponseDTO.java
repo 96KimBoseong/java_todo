@@ -3,9 +3,9 @@ package com.todolist_java.domain.todo.dto;
 import com.todolist_java.domain.todo.model.Todo;
 import lombok.Builder;
 import lombok.Getter;
-
 import java.time.LocalDateTime;
 
+@Getter
 @Builder
 public class TodoResponseDTO {
     private String title;
