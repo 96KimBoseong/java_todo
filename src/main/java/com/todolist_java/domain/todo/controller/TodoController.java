@@ -3,6 +3,7 @@ package com.todolist_java.domain.todo.controller;
 import com.todolist_java.domain.todo.dto.TodoRequestDTO;
 import com.todolist_java.domain.todo.dto.TodoResponseDTO;
 import com.todolist_java.domain.todo.service.TodoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,12 +12,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/todos")
+@RequiredArgsConstructor
 public class TodoController {
     private final TodoService todoService;
 
-    public TodoController(TodoService todoService) {
-        this.todoService = todoService;
-    }
+//    public TodoController(TodoService todoService) {
+//        this.todoService = todoService;
+//    }
 
     @PostMapping("/create")
     public ResponseEntity<TodoResponseDTO> createTodo(@RequestBody TodoRequestDTO todoRequestDTO){

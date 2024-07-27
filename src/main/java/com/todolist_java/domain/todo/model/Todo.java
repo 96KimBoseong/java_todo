@@ -7,7 +7,7 @@ import lombok.*;
 @Entity
 @Getter
 @Builder
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Table(name = "todo")
 public class Todo extends BaseTimeEntity {
@@ -52,6 +52,7 @@ public class Todo extends BaseTimeEntity {
         this.content = content;
         this.writer = writer;
     }
+
     //취향인데 엔티티 안에 비즈니스로직이 들어가는게
     // 엔티티와 비즈니스 로직을 순수하게 분리하는게 아니라면 걍 써도됨
     // 파라미터/ 필더가 많아지면 필드를 공통적으로 묶을 수 있게 vo를 던지고 받으면서? vo?

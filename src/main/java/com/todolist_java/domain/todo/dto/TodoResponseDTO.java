@@ -24,4 +24,10 @@ public class TodoResponseDTO {
                 .build();
 
     }
+//    public static TodoResponseDTO from(Todo todo) {
+//        return TodoResponseDTO(
+//                this.title =todo.getTitle()
+//
+//        )
+//    }
 }
