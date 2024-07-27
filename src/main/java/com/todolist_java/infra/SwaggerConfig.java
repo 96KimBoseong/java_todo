@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
             return new OpenAPI()
                     .info(
                             new Info()
-                                    .title("CatTower API")
+                                    .title("todoList API")
                                     .description("CatTower API schema")
                                     .version("1.0.0")
                     );
