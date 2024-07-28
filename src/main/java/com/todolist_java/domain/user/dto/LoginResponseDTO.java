@@ -6,17 +6,14 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class UserResponseDTO {
+public class LoginResponseDTO {
     private Long id;
     private String nickname;
     private String username;
+    private String token;
 
 
-    public static UserResponseDTO formUser(User user) {
-        return new UserResponseDTO(
-                user.getId(),
-                user.getNickname(),
-                user.getUsername()
-        );
+    public static LoginResponseDTO formUserWithToken(Long id, String nickname, String username, String token) {
+        return new LoginResponseDTO(id, nickname, username,token);
     }
 }
