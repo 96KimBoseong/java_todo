@@ -2,6 +2,7 @@ package com.todolist_java.domain.comment.service;
 
 import com.todolist_java.domain.comment.dto.CommentRequestDTO;
 import com.todolist_java.domain.comment.dto.CommentResponseDTO;
+import com.todolist_java.domain.comment.dto.CommentUpdateDTO;
 import com.todolist_java.domain.comment.model.Comment;
 import com.todolist_java.domain.comment.repository.CommentRepository;
 import com.todolist_java.domain.todo.model.Todo;
@@ -28,8 +29,18 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentResponseDTO updateComment(CommentRequestDTO commentRequestDTO, Long todoId) {
-        return null;
+    public CommentResponseDTO updateComment(CommentUpdateDTO commentUpdateDTO, Long todoId, Long commentId) {
+        Todo todo = todoRepository.findById(todoId).orElseThrow(()-> new IllegalArgumentException("todo not found"));
+        Comment comment = commentRepository.findById(commentId).orElseThrow(()-> new IllegalArgumentException("comment not found"));
+
+        //todo 와 comment에 fk가 같지 않으면 바꾸면 안되겠죠잉
+        if (todo== comment.getTodo()) {
+            comment.updateComment(commentUpdateDTO.getContent());
+            commentRepository.save(comment);
+        }else{
+            throw new IllegalStateException("todo does not belong to this comment");
+        }
+        return CommentResponseDTO.fromComment(comment);
     }
 
     @Override

@@ -24,8 +24,8 @@ public class CommentController {
                 .body(commentService.createComment(requestDTO, todoId));
     }
 
-    @PatchMapping("/update/{todoId}")
-    public ResponseEntity<CommentResponseDTO> updateComment(@RequestBody CommentRequestDTO requestDTO, @PathVariable Long todoId) {
+    @PatchMapping("/update/{todoId}/{commentId}")
+    public ResponseEntity<CommentResponseDTO> updateComment(@RequestBody CommentRequestDTO requestDTO, @PathVariable Long todoId,@PathVariable Long commentId) {
         return null;
     }
     @DeleteMapping("/delete/{commentId}")
