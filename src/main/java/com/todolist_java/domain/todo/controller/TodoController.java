@@ -27,24 +27,24 @@ public class TodoController {
                 .body(todoService.createTodo(todoRequestDTO));
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<TodoResponseDTO> updateTodo(@RequestBody TodoRequestDTO todoRequestDTO){
+    @PutMapping("/update/{todoId}")
+    public ResponseEntity<TodoResponseDTO> updateTodo(@RequestBody TodoRequestDTO todoRequestDTO, @PathVariable Long todoId){
         return ResponseEntity.
                 status(HttpStatus.OK)
-                .body(todoService.updateTodo(todoRequestDTO));
+                .body(todoService.updateTodo(todoId,todoRequestDTO));
     }
-    @DeleteMapping("/delete")
-    public ResponseEntity<Void> deleteTodo(@RequestParam String writer, @RequestParam String password){
-        todoService.deleteTodo(writer,password);
+    @DeleteMapping("/delete/{todoId}")
+    public ResponseEntity<Void> deleteTodo(@PathVariable Long todoId, @RequestParam String password){
+        todoService.deleteTodo(todoId,password);
         return ResponseEntity.
                 status(HttpStatus.NO_CONTENT)
                 .build();
     }
-    @GetMapping("/get")
-    public ResponseEntity<TodoResponseDTO> getTodo(@RequestParam String writer){
+    @GetMapping("/get/{todoId}")
+    public ResponseEntity<TodoResponseDTO> getTodo( @PathVariable Long todoId){
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(todoService.getTodo(writer));
+                .body(todoService.getTodo(todoId));
     }
 
     @GetMapping("/getList")

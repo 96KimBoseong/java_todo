@@ -4,7 +4,9 @@ import com.todolist_java.domain.todo.model.Todo;
 import lombok.*;
 
 @Getter//Jackson 을 써서 직렬화 / 역직렬화를 하는데 이때 필요하단다
-@Builder
+//@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+
 public class TodoRequestDTO {
 
     private String title;

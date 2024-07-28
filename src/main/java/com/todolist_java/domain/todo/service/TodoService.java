@@ -9,11 +9,11 @@ import java.util.List;
 public interface TodoService {
     TodoResponseDTO createTodo(TodoRequestDTO todoRequestDTO);
 
-    TodoResponseDTO updateTodo(TodoRequestDTO todoRequestDTO);
+    TodoResponseDTO updateTodo(Long todoId,TodoRequestDTO todoRequestDTO);
 
-    void deleteTodo(String writer, String password);
+    void deleteTodo(Long todoId, String password);
 
-    TodoResponseDTO getTodo(String writer);
+    TodoResponseDTO getTodo(Long todoId);
 
     List<TodoResponseDTO> getAllTodos();
 }

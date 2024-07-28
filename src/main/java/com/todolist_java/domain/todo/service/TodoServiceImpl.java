@@ -48,9 +48,6 @@ public class TodoServiceImpl implements TodoService {
 
 
 
-
-
-
         todoRepository.save(todo);
         return TodoResponseDTO.fromTodo(todo);
     }
@@ -59,9 +56,9 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     @Transactional
-    public TodoResponseDTO updateTodo(TodoRequestDTO todoRequestDTO) {
+    public TodoResponseDTO updateTodo(Long todoId,TodoRequestDTO todoRequestDTO) {
         Todo todo = todoRepository
-                .findByWriterAndPassword(todoRequestDTO.getWriter(),todoRequestDTO.getPassword())
+                .findByIdAndPassword(todoId,todoRequestDTO.getPassword())
                 .orElseThrow(()->new IllegalArgumentException("니꺼아님"));
 
         todo.update(todoRequestDTO.getTitle(),todoRequestDTO.getContent(),todoRequestDTO.getWriter());
@@ -71,16 +68,16 @@ public class TodoServiceImpl implements TodoService {
 
 
     @Override
-    public void deleteTodo(String writer, String password) {
+    public void deleteTodo(Long todoId, String password) {
         Todo todo = todoRepository
-                .findByWriterAndPassword(writer,password)
+                .findByIdAndPassword(todoId,password)
                 .orElseThrow(()->new IllegalArgumentException("아이디랑 패스워드 확인"));
         todoRepository.delete(todo);
     }
 
     @Override
-    public TodoResponseDTO getTodo(String writer) {
-        Todo todo = todoRepository.findByWriter(writer)
+    public TodoResponseDTO getTodo(Long todoId) {
+        Todo todo = todoRepository.findById(todoId)
                 .orElseThrow(()-> new IllegalArgumentException("작성자 없다잉"));
         return TodoResponseDTO.fromTodo(todo);
     }
