@@ -2,6 +2,7 @@ package com.todolist_java.domain.comment.controller;
 
 import com.todolist_java.domain.comment.dto.CommentRequestDTO;
 import com.todolist_java.domain.comment.dto.CommentResponseDTO;
+import com.todolist_java.domain.comment.dto.CommentUpdateDTO;
 import com.todolist_java.domain.comment.service.CommentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +26,16 @@ public class CommentController {
     }
 
     @PatchMapping("/update/{todoId}/{commentId}")
-    public ResponseEntity<CommentResponseDTO> updateComment(@RequestBody CommentRequestDTO requestDTO, @PathVariable Long todoId,@PathVariable Long commentId) {
-        return null;
+    public ResponseEntity<CommentResponseDTO> updateComment(@RequestBody CommentUpdateDTO requestDTO, @PathVariable Long todoId, @PathVariable Long commentId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(commentService.updateComment(requestDTO,todoId,commentId));
     }
     @DeleteMapping("/delete/{commentId}")
-    public void deleteComment(@RequestBody CommentRequestDTO requestDTO, @PathVariable Long commentId) {}
+    public ResponseEntity<Void> deleteComment(@PathVariable Long commentId) {
+        commentService.deleteComment(commentId);
+        return ResponseEntity.noContent().build();
+    }
 
 //    @GetMapping("/{commentId}")
 //    public ResponseEntity<CommentResponseDTO> getComment(@PathVariable Long commentId) {

@@ -7,5 +7,5 @@ import com.todolist_java.domain.comment.dto.CommentUpdateDTO;
 public interface CommentService {
     public CommentResponseDTO createComment(CommentRequestDTO commentRequestDTO, Long todoId);
     public CommentResponseDTO updateComment(CommentUpdateDTO commentUpdateDTO, Long todoId, Long commentId);
-    public CommentResponseDTO deleteComment(Long commentId);
+    public void deleteComment(Long commentId);
 }

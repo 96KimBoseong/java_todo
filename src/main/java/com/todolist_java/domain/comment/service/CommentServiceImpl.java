@@ -44,7 +44,9 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentResponseDTO deleteComment(Long commentId) {
-        return null;
+    public void deleteComment(Long commentId) {
+        Comment comment = commentRepository.findById(commentId).orElseThrow(()-> new IllegalArgumentException("comment not found"));
+        commentRepository.delete(comment);
+
     }
 }
