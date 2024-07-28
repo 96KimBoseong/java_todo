@@ -53,6 +53,10 @@ public class Todo extends BaseTimeEntity {
 
 
 
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
+
     //얘는 업뎃용 무시
     public void update(String title, String content,String writer) {
         this.title = title;
