@@ -12,13 +12,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/todos")
-@RequiredArgsConstructor
 public class TodoController {
+
     private final TodoService todoService;
 
-//    public TodoController(TodoService todoService) {
-//        this.todoService = todoService;
-//    }
+    public TodoController(TodoService todoService) {
+        this.todoService = todoService;
+    }
 
     @PostMapping("/create")
     public ResponseEntity<TodoResponseDTO> createTodo(@RequestBody TodoRequestDTO todoRequestDTO){

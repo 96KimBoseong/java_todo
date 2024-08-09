@@ -7,6 +7,8 @@ import com.todolist_java.domain.user.dto.UserResponseDTO;
 import jakarta.servlet.http.HttpServletResponse;
 
 public interface UserService {
-    public UserResponseDTO signUp(SignUpRequestDTO signUpRequestDTO);
-    public LoginResponseDTO login(LoginRequestDTO loginRequestDTO, HttpServletResponse response);
+     UserResponseDTO signUp(SignUpRequestDTO signUpRequestDTO);
+     LoginResponseDTO login(LoginRequestDTO loginRequestDTO, HttpServletResponse response);
+     UserResponseDTO getUser(String username);
+
 }

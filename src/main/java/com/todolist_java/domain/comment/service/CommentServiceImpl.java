@@ -8,6 +8,7 @@ import com.todolist_java.domain.comment.repository.CommentRepository;
 import com.todolist_java.domain.todo.model.Todo;
 import com.todolist_java.domain.todo.repository.TodoRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -17,7 +18,7 @@ public class CommentServiceImpl implements CommentService {
         this.commentRepository = commentRepository;
         this.todoRepository =todoRepository;
     }
-
+    @Transactional
     @Override
     public CommentResponseDTO createComment(CommentRequestDTO commentRequestDTO, Long todoId) {
         Todo todo = todoRepository.findById(todoId).orElseThrow(()-> new IllegalArgumentException("todo not found"));
@@ -27,7 +28,7 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.save(comment);
         return CommentResponseDTO.fromComment(comment);
     }
-
+    @Transactional
     @Override
     public CommentResponseDTO updateComment(CommentUpdateDTO commentUpdateDTO, Long todoId, Long commentId) {
         Todo todo = todoRepository.findById(todoId).orElseThrow(()-> new IllegalArgumentException("todo not found"));
@@ -42,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
         }
         return CommentResponseDTO.fromComment(comment);
     }
-
+    @Transactional
     @Override
     public void deleteComment(Long commentId) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(()-> new IllegalArgumentException("comment not found"));

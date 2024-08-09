@@ -9,6 +9,7 @@ import com.todolist_java.domain.user.repository.UserRepository;
 import com.todolist_java.infra.util.JwtUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -20,7 +21,7 @@ public class UserServiceImpl implements UserService {
         this.jwtUtil = jwtUtil;
     }
 
-
+    @Transactional
     @Override
     public UserResponseDTO signUp(SignUpRequestDTO signUpRequestDTO) {
         if(userRepository.existsByUsername(signUpRequestDTO.getUsername())){
@@ -30,7 +31,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         return UserResponseDTO.formUser(user);
     }
-
+    @Transactional
     @Override
     public LoginResponseDTO login(LoginRequestDTO loginRequestDTO, HttpServletResponse response) {
         User user = userRepository.findByUsername(loginRequestDTO.getUsername()).orElseThrow(()-> new IllegalArgumentException("UserId 오류"));
@@ -41,6 +42,12 @@ public class UserServiceImpl implements UserService {
         }else {
             throw new IllegalArgumentException("Wrong password");
         }
+    }
+
+    @Override
+    public UserResponseDTO getUser(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(()-> new IllegalArgumentException("Username not found"));
+        return UserResponseDTO.formUser(user);
     }
 
 }
